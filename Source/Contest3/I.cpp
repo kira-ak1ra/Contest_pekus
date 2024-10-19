@@ -1,39 +1,55 @@
 #include <iostream>
 
-void Swap(int &lhs, int &rhs) {
-  int tmp = lhs;
-  lhs = rhs;
-  rhs = tmp;
-}
-
-void RemainderBubbleSort(int *arr, const int size) {
-  for (int i = 0; i < size - 1; i++) {
-    bool were_permutations = false;
-    for (int j = 0; j < size - i - 1; j++) {
-      if (arr[j] % 10 > arr[j + 1] % 10) {
-        Swap(arr[j], arr[j + 1]);
-        were_permutations = true;
-      }
-    }
-    if (!were_permutations) {
-      return;
-    }
-  }
-}
-
 int main() {
   int n = 0;
-  std::cin >> n;
-  int *arr = new int[n];
+  int m = 0;
+
+  std::cin >> n >> m;
+
+  int* dowels = new int[n];
+  int* drills = new int[m];
 
   for (int i = 0; i < n; i++) {
-    std::cin >> arr[i];
+    std::cin >> dowels[i];
   }
 
-  RemainderBubbleSort(arr, n);
+  for (int i = 0; i < m; i++) {
+    std::cin >> drills[i];
+  }
+
+  int result = 1000000001;
 
   for (int i = 0; i < n; i++) {
-    std::cout << arr[i] << " ";
+    int to_find = dowels[i];
+
+    int start = 0;
+    int end = m - 1;
+
+    while (start <= end) {
+      int mid = (start + end) / 2;
+
+      if (to_find == drills[mid]) {
+        break;
+      }
+
+      if (to_find > drills[mid]) {
+        start = mid + 1;
+      } else {
+        end = mid - 1;
+      }
+      int distance = std::abs(to_find - drills[(start + end) / 2]);
+      result = std::min(result, distance);
+    }
+
+    if (result == 0) {
+      break;
+    }
   }
-  delete[] arr;
+
+  std::cout << result;
+
+  delete[] dowels;
+  delete[] drills;
+
+  return 0;
 }

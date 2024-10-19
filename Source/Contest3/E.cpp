@@ -1,40 +1,35 @@
 #include <iostream>
-
-bool BinSearch(int* arr, const int n, const int aim) {
-  int start = 0;
-  int end = n - 1;
-
-  while (start <= end) {
-    int mid = (start + end) / 2;
-
-    if (arr[mid] == aim) {
-      return true;
-    }
-
-    if (arr[mid] < aim) {
-      start = mid + 1;
-    } else {
-      end = mid - 1;
-    }
-  }
-  return false;
-}
 int main() {
-  int n = 0;
-  std::cin >> n;
+  int mat1[3][3];
+  int mat2[3][3];
+  int result[3][3];
 
-  int* arr = new int[n];
-  for (int i = 0; i < n; i++) {
-    std::cin >> arr[i];
-  }
-
-  for (int i = 0; i < arr[n - 1]; i++) {
-    if (!BinSearch(arr, n, i)) {
-      std::cout << i;
-      break;
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      std::cin >> mat1[i][j];
     }
   }
 
-  delete[] arr;
-  return 0;
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      std::cin >> mat2[i][j];
+    }
+  }
+
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      int temp = 0;
+      for (int t = 0; t < 3; t++) {
+        temp += mat1[i][t] * mat2[t][j];
+      }
+      result[i][j] = temp;
+    }
+  }
+
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      std::cout << result[i][j] << " ";
+    }
+    std::cout << "\n";
+  }
 }

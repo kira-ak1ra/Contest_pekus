@@ -1,37 +1,32 @@
-#include <cmath>
-#include <cstring>
 #include <iostream>
-
-void Swap(int& lhs, int& rhs) {
-  int tmp = lhs;
-  lhs = rhs;
-  rhs = tmp;
-}
-
-void SelectionSort(int* arr, const int size) {
-  for (int i = 0; i < size - 1; i++) {
-    int min_idx = i;
-    for (int j = i + 1; j < size; j++) {
-      if (arr[j] < arr[min_idx]) {
-        min_idx = j;
-      }
-    }
-    if (min_idx != i) {
-      Swap(arr[i], arr[min_idx]);
-    }
-  }
-}
 
 int main() {
   int n = 0;
+
   std::cin >> n;
-  int* arr = new int[n];
-  for (int i = 0; i < n; i++) {
-    std::cin >> arr[i];
+
+  int binary[32] = {};
+
+  for (int i = 0; i < 32; i++) {
+    binary[i] = -1;
   }
-  SelectionSort(arr, n);
-  for (int i = 0; i < n; i++) {
-    std::cout << arr[i] << " ";
+
+  int i = 0;
+
+  while (n > 0) {
+    binary[i] = !(n % 2);
+    n /= 2;
+    i++;
   }
-  delete[] arr;
+
+  int base = 1;
+  int result = 0;
+  for (int i = 0; i < 32; i++) {
+    if (binary[i] != -1) {
+      result += binary[i] * base;
+      base *= 2;
+    }
+  }
+
+  std::cout << result;
 }
