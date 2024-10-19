@@ -1,5 +1,3 @@
-#include <cmath>
-#include <cstring>
 #include <iostream>
 
 void Swap(int& lhs, int& rhs) {
@@ -8,16 +6,17 @@ void Swap(int& lhs, int& rhs) {
   rhs = tmp;
 }
 
-void SelectionSort(int* arr, const int size) {
+void RemainderBubbleSort(int* arr, const int size) {
   for (int i = 0; i < size - 1; i++) {
-    int min_idx = i;
-    for (int j = i + 1; j < size; j++) {
-      if (arr[j] < arr[min_idx]) {
-        min_idx = j;
+    bool were_permutations = false;
+    for (int j = 0; j < size - i - 1; j++) {
+      if (arr[j] % 10 > arr[j + 1] % 10) {
+        Swap(arr[j], arr[j + 1]);
+        were_permutations = true;
       }
     }
-    if (min_idx != i) {
-      Swap(arr[i], arr[min_idx]);
+    if (!were_permutations) {
+      return;
     }
   }
 }
@@ -26,10 +25,13 @@ int main() {
   int n = 0;
   std::cin >> n;
   int* arr = new int[n];
+
   for (int i = 0; i < n; i++) {
     std::cin >> arr[i];
   }
-  SelectionSort(arr, n);
+
+  RemainderBubbleSort(arr, n);
+
   for (int i = 0; i < n; i++) {
     std::cout << arr[i] << " ";
   }

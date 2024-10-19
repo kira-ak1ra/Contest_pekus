@@ -8,16 +8,10 @@ void Swap(int& lhs, int& rhs) {
   rhs = tmp;
 }
 
-void SelectionSort(int* arr, const int size) {
-  for (int i = 0; i < size - 1; i++) {
-    int min_idx = i;
-    for (int j = i + 1; j < size; j++) {
-      if (arr[j] < arr[min_idx]) {
-        min_idx = j;
-      }
-    }
-    if (min_idx != i) {
-      Swap(arr[i], arr[min_idx]);
+void InsertionSort(int* arr, const int size) {
+  for (int i = 1; i < size; i++) {
+    for (int j = i; j > 0 && arr[j] < arr[j - 1]; j--) {
+      Swap(arr[j], arr[j - 1]);
     }
   }
 }
@@ -29,7 +23,7 @@ int main() {
   for (int i = 0; i < n; i++) {
     std::cin >> arr[i];
   }
-  SelectionSort(arr, n);
+  InsertionSort(arr, n);
   for (int i = 0; i < n; i++) {
     std::cout << arr[i] << " ";
   }
